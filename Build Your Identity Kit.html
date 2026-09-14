@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omer Yar Khan — Backend engineering, tested before it counts as done</title>
+<meta name="description" content="Backend engineering intern at FlyRank. I build practical Python and AI automation tools that turn repetitive backend workflows into measurable, repeatable processes.">
+<style>
+  :root{
+    --midnight:#0b1024;
+    --midnight-2:#0f1530;
+    --near-white:#f5f7ff;
+    --cobalt:#8ea2ff;
+    --violet:#7b61ff;
+    --muted:#4d5875;
+    --line: rgba(245,247,255,0.10);
+    --max: 1100px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--midnight);
+    color:var(--near-white);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--violet); color:var(--near-white); }
+
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  section{ scroll-margin-top: 84px; }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,16,36,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .mark{
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:-0.02em;
+  }
+  .mark span{ color:var(--cobalt); }
+  .nav-links{
+    display:flex; align-items:center; gap:28px;
+    font-size:0.92rem;
+  }
+  .nav-links a{
+    color:var(--near-white);
+    opacity:0.78;
+    padding:6px 2px;
+    border-bottom:1px solid transparent;
+    transition: opacity .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover{ opacity:1; border-color:var(--cobalt); }
+  .nav-lang{
+    font-size:0.85rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:5px 11px;
+    border-radius:3px;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .nav-lang:hover{ color:var(--near-white); border-color:var(--muted); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:96px 0 72px;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .claim{
+    font-size:clamp(2.1rem, 4vw, 3.4rem);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.12;
+    margin:0 0 22px;
+  }
+  .editorial{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style:italic;
+    color:var(--cobalt);
+    font-size:1.1rem;
+    margin:0 0 34px;
+    max-width:46ch;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block;
+    padding:12px 22px;
+    font-size:0.95rem;
+    border-radius:3px;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .btn-primary{
+    background:var(--cobalt);
+    color:var(--midnight);
+    font-weight:700;
+  }
+  .btn-primary:hover{ background:var(--near-white); }
+  .btn-secondary{
+    border:1px solid var(--line);
+    color:var(--near-white);
+  }
+  .btn-secondary:hover{ border-color:var(--muted); }
+
+  /* hero graph */
+  .graph{
+    width:100%; height:auto;
+  }
+  .graph .node{
+    fill:var(--muted);
+  }
+  .graph .node.on{ fill:var(--cobalt); }
+  .graph .node.on2{ fill:var(--violet); }
+  .graph line{
+    stroke:var(--line);
+    stroke-width:1;
+  }
+  .graph .lit{
+    stroke:var(--cobalt);
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    animation: draw 1.6s ease forwards 0.2s;
+  }
+  .graph .lit2{
+    stroke:var(--violet);
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    animation: draw 1.6s ease forwards 0.5s;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @media (prefers-reduced-motion: reduce){
+    .graph .lit, .graph .lit2{ animation:none; stroke-dashoffset:0; }
+  }
+
+  /* ---------- Proof strip ---------- */
+  .proof{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:34px 0;
+  }
+  .proof .wrap{
+    display:flex; flex-wrap:wrap; gap:40px 60px;
+    align-items:baseline;
+  }
+  .stat{
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .stat b{
+    font-size:1.7rem;
+    color:var(--cobalt);
+    letter-spacing:-0.01em;
+  }
+  .stat span{
+    color:var(--muted);
+    font-size:0.95rem;
+  }
+  .proof-note{
+    color:var(--muted);
+    font-size:0.95rem;
+    margin-left:auto;
+  }
+
+  /* ---------- Section heading ---------- */
+  .section-head{
+    padding:80px 0 8px;
+  }
+  .section-head h2{
+    font-size:clamp(1.6rem, 2.6vw, 2.1rem);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin:0 0 12px;
+  }
+  .section-head p{
+    color:var(--muted);
+    max-width:60ch;
+    font-size:1rem;
+    line-height:1.7;
+  }
+
+  /* ---------- Work ---------- */
+  .work{ padding-bottom:88px; }
+  .cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:32px;
+  }
+  .card{
+    background:var(--midnight);
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    transition: background .15s ease;
+  }
+  .card:hover{ background:var(--midnight-2); }
+  .card h3{
+    font-size:1.2rem;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .card p{
+    color:#c7cce0;
+    font-size:0.97rem;
+    line-height:1.7;
+    margin:0;
+  }
+  .tags{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top:4px;
+  }
+  .tag{
+    font-size:0.78rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:4px 9px;
+    border-radius:3px;
+  }
+  .repo-link{
+    margin-top:auto;
+    padding-top:10px;
+    font-size:0.92rem;
+    color:var(--cobalt);
+    border-bottom:1px solid transparent;
+    width:fit-content;
+  }
+  .repo-link:hover{ border-color:var(--cobalt); }
+  .card-next{
+    border:1px dashed var(--line);
+    background:transparent !important;
+    justify-content:center;
+  }
+  .card-next .label{
+    font-size:0.78rem;
+    color:var(--muted);
+    margin-bottom:2px;
+  }
+  .card-next h3{ color:var(--near-white); }
+  .card-next p{ color:var(--muted); }
+
+  /* ---------- About ---------- */
+  .about{ padding-bottom:88px; }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 300px;
+    gap:56px;
+    margin-top:32px;
+    align-items:start;
+  }
+  .about-text p{
+    color:#c7cce0;
+    font-size:1.02rem;
+    line-height:1.75;
+    max-width:62ch;
+    margin:0 0 18px;
+  }
+  .tools{
+    margin-top:24px;
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+
+  /* generated mark instead of a photo */
+  .mark-card{
+    border:1px solid var(--line);
+    padding:24px;
+  }
+  .signature{
+    display:grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap:6px;
+    margin-bottom:16px;
+  }
+  .signature i{
+    display:block;
+    padding-bottom:100%;
+    background:var(--line);
+    border-radius:1px;
+  }
+  .signature i.a{ background:var(--cobalt); opacity:0.9; }
+  .signature i.b{ background:var(--violet); opacity:0.9; }
+  .signature i.c{ background:var(--muted); }
+  .mark-caption{
+    font-size:0.85rem;
+    color:var(--muted);
+    line-height:1.6;
+    margin:0;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{ padding-bottom:100px; }
+  .contact-grid{
+    margin-top:32px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .contact-item{
+    background:var(--midnight);
+    padding:26px 22px;
+    transition: background .15s ease;
+  }
+  .contact-item:hover{ background:var(--midnight-2); }
+  .contact-item .label{
+    display:block;
+    font-size:0.82rem;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .contact-item .value{
+    font-size:1.02rem;
+    color:var(--near-white);
+    border-bottom:1px solid transparent;
+  }
+  .contact-item:hover .value{ border-color:var(--cobalt); color:var(--cobalt); }
+  .contact-note{
+    color:var(--muted);
+    font-size:0.95rem;
+    margin-top:22px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0 40px;
+  }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+  }
+  footer p{
+    color:var(--muted);
+    font-size:0.85rem;
+    margin:0;
+  }
+  footer a{
+    color:var(--muted);
+    font-size:0.85rem;
+    border-bottom:1px solid transparent;
+  }
+  footer a:hover{ color:var(--near-white); border-color:var(--muted); }
+
+  @media (max-width: 860px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero{ padding-top:56px; }
+    .graph{ order:-1; max-width:340px; margin:0 auto 12px; }
+    .cards{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+    .mark-card{ max-width:300px; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .nav-links{ display:none; }
+    .proof-note{ margin-left:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="wrap">
+    <a class="mark" href="#home">OYK<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home" class="hero">
+    <div class="wrap">
+      <div>
+        <h1 class="claim">I build practical Python and AI automation tools that turn repetitive backend workflows into measurable, repeatable processes.</h1>
+        <p class="editorial">Backend engineering intern at FlyRank. Tested before it counts as done.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#work">Explore the work</a>
+          <a class="btn btn-secondary" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <svg class="graph" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+        <line x1="60" y1="240" x2="150" y2="170" />
+        <line x1="150" y1="170" x2="250" y2="200" />
+        <line x1="150" y1="170" x2="140" y2="70" />
+        <line x1="250" y1="200" x2="310" y2="130" />
+        <line x1="140" y1="70" x2="230" y2="40" />
+        <line class="lit" x1="60" y1="240" x2="150" y2="170" />
+        <line class="lit" x1="150" y1="170" x2="140" y2="70" />
+        <line class="lit2" x1="150" y1="170" x2="250" y2="200" />
+        <line class="lit2" x1="140" y1="70" x2="230" y2="40" />
+        <circle class="node on" cx="60" cy="240" r="7"/>
+        <circle class="node" cx="20" cy="190" r="4"/>
+        <circle class="node on2" cx="150" cy="170" r="9"/>
+        <circle class="node" cx="250" cy="200" r="5"/>
+        <circle class="node on" cx="310" cy="130" r="6"/>
+        <circle class="node on2" cx="140" cy="70" r="7"/>
+        <circle class="node" cx="230" cy="40" r="5"/>
+        <circle class="node" cx="90" cy="120" r="4"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="proof">
+    <div class="wrap">
+      <div class="stat"><b>3</b><span>backend tools shipped this internship</span></div>
+      <div class="stat"><b>55</b><span>automated tests, currently passing</span></div>
+      <p class="proof-note">All three are below. No number on this page I haven't personally run and checked.</p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="work">
+    <div class="wrap">
+      <div class="section-head" style="padding-top:64px;">
+        <h2>Selected work</h2>
+        <p>Three repositories that support the claim above. Each link goes straight to the code.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>API Response Contract Validator &amp; Drift Detector</h3>
+          <p>Validates backend API responses against a declared schema and separately detects shape drift against a saved baseline — catches a field's type flipping or a field disappearing, not just whether the response is technically valid.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">pytest</span>
+            <span class="tag">CLI</span>
+          </div>
+          <a class="repo-link" href="https://github.com/omeryar887/FlyRank-AI-Workflow-Audit-and-Tool-Setup" target="_blank" rel="noopener">View repository</a>
+        </div>
+
+        <div class="card">
+          <h3>Portfolio Evidence Tracker</h3>
+          <p>A FastAPI backend built around one idea: a task only becomes "portfolio-ready" once seven things exist in order, ending in human verification — no code path can mark that step complete but me.</p>
+          <div class="tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">SQLAlchemy</span>
+            <span class="tag">pytest</span>
+            <span class="tag">SQLite</span>
+          </div>
+          <a class="repo-link" href="https://github.com/omeryar887/flyrank-portfolio-tracker" target="_blank" rel="noopener">View repository</a>
+        </div>
+
+        <div class="card">
+          <h3>Task API on Postgres, in Docker</h3>
+          <p>A CRUD API moved off an in-memory list onto a containerized Postgres database, with storage behind a repository interface so the routes never changed — and the whole stack starts with one command.</p>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">psycopg</span>
+            <span class="tag">docker compose</span>
+          </div>
+          <a class="repo-link" href="https://github.com/omeryar887/flyrank-task-api-postgres" target="_blank" rel="noopener">View repository</a>
+        </div>
+
+        <div class="card card-next">
+          <span class="label">Next up</span>
+          <h3>Authentication on the Portfolio Evidence Tracker</h3>
+          <p>Named and reminder-set, not just intended — it's the honest next limitation from the project above, and it becomes the fourth case here once it's shipped and tested.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="section-head" style="padding-top:0;">
+        <h2>About</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a backend engineering intern at FlyRank. I build small, tested Python tools — API contract checks, evidence-tracking systems, CRUD APIs — that turn repetitive backend work into something measurable and repeatable.</p>
+          <p>AI drafts the first version of my code and tests. I decide the architecture, review every line, and I'm the one who verifies a claim before it goes on this page.</p>
+          <div class="tools">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Docker</span>
+            <span class="tag">SQLAlchemy</span>
+            <span class="tag">pytest</span>
+            <span class="tag">Pydantic</span>
+          </div>
+        </div>
+
+        <div class="mark-card">
+          <div class="signature">
+            <i class="c"></i><i class="a"></i><i></i><i class="b"></i><i></i><i class="a"></i><i></i><i class="c"></i>
+            <i class="b"></i><i></i><i class="a"></i><i></i><i class="c"></i><i></i><i class="b"></i><i></i>
+            <i></i><i class="c"></i><i></i><i class="a"></i><i></i><i class="b"></i><i></i><i class="a"></i>
+            <i class="a"></i><i></i><i class="b"></i><i></i><i class="a"></i><i></i><i class="c"></i><i></i>
+          </div>
+          <p class="mark-caption">A generated mark stands in for a photo this round — on purpose, not by omission. A real portrait is on the list for the next version.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="section-head" style="padding-top:0;">
+        <h2>Contact</h2>
+        <p>Email is the fastest way in. LinkedIn and GitHub for context.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a class="contact-item" href="mailto:omeryar887@gmail.com">
+          <span class="label">Email</span>
+          <span class="value">omeryar887@gmail.com</span>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/omer-yar-b59287283" target="_blank" rel="noopener">
+          <span class="label">LinkedIn</span>
+          <span class="value">in/omer-yar-b59287283</span>
+        </a>
+        <a class="contact-item" href="https://github.com/omeryar887" target="_blank" rel="noopener">
+          <span class="label">GitHub</span>
+          <span class="value">github.com/omeryar887</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Omer Yar Khan — backend tools, tested before they count as done.</p>
+  </div>
+</footer>
+
+</body>
+</html>
